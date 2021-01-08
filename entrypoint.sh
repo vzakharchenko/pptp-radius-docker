@@ -4,7 +4,8 @@ set -e
 service rsyslog start
 iptables-restore < /etc/iptables/rules.v4
 
-echo "export RADSEC_TEMPLATE_PROXY_CONF=/opt/etc/radsecproxy.conf">/opt/envs_docker.sh
+echo "export RADSEC_TEMPLATE_PROXY_CONF=/opt/etc/radsecproxyRadSec.conf">/opt/envs_docker.sh
+echo "export UDP_TEMPLATE_PROXY_CONF=/opt/etc/radsecproxyUDP.conf">/opt/envs_docker.sh
 echo "export RADSEC_PROXY_CONF=/etc/radsecproxy.conf">>/opt/envs_docker.sh
 echo "export RADIUS_CLIENT=/etc/radcli/radiusclient.conf">>/opt/envs_docker.sh
 echo "export RADIUS_SERVER=/etc/radcli/servers">>/opt/envs_docker.sh

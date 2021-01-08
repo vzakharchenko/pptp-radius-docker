@@ -38,7 +38,8 @@ RUN chmod 777 /etc/iptables/rules.v4
 COPY entrypoint.sh /entrypoint.sh
 RUN  chmod +x /entrypoint.sh
 RUN mkdir -p /opt/roles
-ENV RADSEC_TEMPLATE_PROXY_CONF /opt/etc/radsecproxy.conf
+ENV RADSEC_TEMPLATE_PROXY_CONF /opt/etc/radsecproxyRadSec.conf
+ENV UDP_TEMPLATE_PROXY_CONF /opt/etc/radsecproxyUDP.conf
 ENV RADSEC_PROXY_CONF /etc/radsecproxy.conf
 ENV RADIUS_CLIENT /etc/radcli/radiusclient.conf
 ENV RADIUS_SERVER /etc/radcli/servers

@@ -115,7 +115,7 @@ async function parseFile(cJson) {
             const jwt = await clientAuthentication(uma2Config, options);
             const url = `${cJson.keycloak.json['auth-server-url']}realms/${cJson.keycloak.json.realm}/radius/v1/radius/info`;
             settings.radiusInfo = JSON.parse(await fetchData(url, 'GET', {
-                'Authorization': `Bearer: ${jwt.access_token}`
+                'Authorization': `Bearer ${jwt.access_token}`
             }));
             settings.host = URI.parse(cJson.keycloak.json['auth-server-url']).host;
             radsecSettings(settings, cJson)

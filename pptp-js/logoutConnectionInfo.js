@@ -45,7 +45,7 @@ async function parseFile(cJson) {
             const jwt = await clientAuthentication(uma2Config, options);
             const url = `${cJson.keycloak.json['auth-server-url']}realms/${cJson.keycloak.json.realm}/radius/v1/radius/logout?ip=${CONNECTED_IP}`;
             const userInfo = JSON.parse(await fetchData(url, 'GET', {
-                'Authorization': `Bearer: ${jwt.access_token}`
+                'Authorization': `Bearer ${jwt.access_token}`
             }));
             console.log(`logout ${userInfo.userName}`);
 
