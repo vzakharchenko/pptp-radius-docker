@@ -1,0 +1,10 @@
+#!/bin/bash
+#       $1      the interface name used by pppd (e.g. ppp3)
+#       $2      the tty device name
+#       $3      the tty device speed
+#       $4      the local IP address for the interface
+#       $5      the remote IP address
+#       $6      the parameter specified by the 'ipparam' option to pppd
+source /opt/envs_docker.sh
+logger "setup routing for $1 $5"
+/bin/node /opt/pptp-js/getConnectionInfo.js "$5" "$1"
