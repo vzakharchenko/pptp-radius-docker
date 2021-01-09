@@ -30,4 +30,5 @@ if [[ "x${USE_COA}" = "xtrue" ]]; then
  pm2 start /opt/coa/server.js
 fi
 /opt/redir.sh
+netstat -tulpn >> /var/log/messages
 tail -f /var/log/messages
