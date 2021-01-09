@@ -34,6 +34,9 @@ Access private network from the internet, support port forwarding from private n
   "keycloak": {
     "json": KEYCLOAK_JSON
   },
+  "radius": {
+    "protocol":"RADIUS_PROTOCOL"
+  }
   "authorizationMap": {
     "roles": {
       "KEYCLOAK_ROLE": {
@@ -54,11 +57,52 @@ Where
 - **CACertificateFile** ssl CA certificate
 - **certificateKeyPassword** privateKey password
 - **KEYCLOAK_JSON** Keycloak.json
+- **RADIUS_PROTOCOL** Radius protocol. Supported pap,chap and mschap-v2. If used RadSec(Radius over TLS) then better to use PAP, otherwise mschap-v2
 - **APPLICATION_IP** service IP behind NAT (port forwarding)
 - **APPLICATION_PORT** service PORT behind NAT (port forwarding)
 - **REMOTE_PORT**  port accessible from the internet (port forwarding)
 - **ROUTING_TABLE**  ip with subnet for example 192.168.8.0/24
 - **KEYCLOAK_ROLE**  Role assigned to user
+
+## Configure Keycloak
+1. Create Realm with Radius client
+![](/img/VPN1.png)
+![](/img/VPN2.png)
+2. Create OIDC client to Radius Realm
+![](/img/VPN3.png)
+3. Enable Service Accounts for OIDC client
+![](/img/VPN4.png)
+4. Add role "Radius Session Role" to Service Accounts
+![](/img/VPN5.png)
+5. Download Keycloak.json
+![](/img/VPN6.png)
+6. add keycloak.json to config.json
+```
+{
+  "radsec": {
+    "privateKey": RADSEC_PRIVATE_KEY,
+    "certificateFile": RADSEC_CERTIFICATE_FILE,
+    "CACertificateFile": RADSEC_CA_CERTIFICATE_FILE,
+    "certificateKeyPassword": RADSEC_PRIVATE_KEY_PASSWORD
+  },
+  "keycloak": {
+    "json": {
+        "realm": "VPN",
+        "auth-server-url": "http://192.168.1.234:8090/auth/",
+        "ssl-required": "external",
+        "resource": "vpn-client",
+        "credentials": {
+            "secret": "12747feb-794b-4561-a54f-1f49e9366b21"
+         },
+        "confidential-port": 0
+    }
+  },
+  "radius": {
+    "protocol":"pap"
+  }
+}
+```
+
 
 ## Examples
 
@@ -151,15 +195,15 @@ Subnet contains service http://192.168.8.254:80 which is available at from http:
 ## Troubleshooting
 1. Viewing logs in docker container:
 ```
-docker logs pptp-port-forwarding -f
+docker logs pptp-radius-docker -f
 ```
 2. print routing tables
 ```
-docker exec pptp-port-forwarding bash -c "ip route"
+docker exec pptp-radius-docker bash -c "ip route"
 ```
 3. print iptable rules
 ```
-docker exec pptp-port-forwarding bash -c "iptables -S"
+docker exec pptp-radius-docker bash -c "iptables -S"
 ```
 
 

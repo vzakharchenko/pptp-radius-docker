@@ -5,6 +5,9 @@
     "CACertificateFile": "../cert.pem",
     "certificateKeyPassword": null
   },
+  "radius": {
+    "protocol": "pap"
+  },
   "keycloak": {
     "json": {
       "realm": "otpPassword",

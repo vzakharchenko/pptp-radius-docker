@@ -17,6 +17,8 @@ const RADSEC_PROXY_FILE = process.env['RADSEC_PROXY_FILE'] || 'radsec.sh';
 const RADIUS_ENVS = process.env['RADIUS_ENVS'] || 'envs.sh';
 const RADIUS_ROUTES = process.env['RADIUS_ROUTES'] || '.';
 const REDIR_SH = process.env['REDIR_SH'] || 'redir.sh';
+const TEMPLATE_PPP_OPTIONS = process.env['TEMPLATE_PPP_OPTIONS'] || '../etc/ppp/pptpd-options';
+const PPP_OPTIONS = process.env['PPP_OPTIONS'] || 'pptpd-options';
 
 let radsecCommand = 'logger "skip radsec configuration"';
 
@@ -91,8 +93,13 @@ function radsecSettings(settings, cJson) {
             }));
         }
     }
-
-
+    let templatePPP = fs.readFileSync(TEMPLATE_PPP_OPTIONS, 'utf8');
+    const protocol = cJson.radius?.protocol || 'mschap-v2';
+    if (!['pap', 'chap', 'mschap-v2'].includes(protocol)) {
+        throw new Error("Protocol " + protocol + " does not supported. Supported only pap,chap and mschap-v2");
+    }
+    templatePPP += `\n+${protocol}\nrequire-${protocol}\n`
+    fs.writeFileSync(PPP_OPTIONS, templatePPP, 'utf8');
     fs.writeFileSync(RADIUS_ENVS, envs, 'utf8');
     fs.writeFileSync(RADIUS_SERVER, servers, 'utf8');
     fs.writeFileSync(RADIUS_CLIENT, radcli, 'utf8');

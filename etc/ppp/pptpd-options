@@ -42,10 +42,10 @@ name pptpd
 # (note that MPPE requires the use of MSCHAP-V2 during authentication)
 #require-mppe-128
 # }}}
-+pap
-+chap
-+mschap
-+mschap-v2
+#+pap
+#+chap
+#+mschap
+#+mschap-v2
 
 
 
@@ -128,6 +128,6 @@ novjccomp
 auth
 #require-mppe
 #noauth
-#require-mschap-v2
+#require-pap
 plugin radius.so
 plugin radattr.so

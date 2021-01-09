@@ -42,13 +42,13 @@ printf "${GREEN}enabled IP forwarding${NC}\n"
 
 printf "${CYAN}running docker image${NC}\n"
 set +e
-docker stop pptp-port-forwarding
-docker rm pptp-port-forwarding
+docker stop pptp-radius-docker
+docker rm pptp-radius-docker
 docker image prune -a -f
 set -e
 
 printf "${CYAN}installing Docker image${NC}\n"
-curl -sSL https://raw.githubusercontent.com/vzakharchenko/docker-pptp-port-forwarding/main/pptp-js/generateDockerCommands.js -o generateDockerCommands.js
+curl -sSL https://raw.githubusercontent.com/vzakharchenko/pptp-radius-docker/main/pptp-js/generateDockerCommands.js -o generateDockerCommands.js
 `node generateDockerCommands.js`
 printf "${CYAN}Rebooting${NC}\n"
 reboot

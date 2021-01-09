@@ -18,7 +18,7 @@ COPY ./etc/iptables/rules.v4 /etc/iptables/rules.v4
 COPY ./etc/rsyslog.conf /etc/rsyslog.conf
 COPY ./etc/rsyslog.d/50-default.conf /etc/rsyslog.d/50-default.conf
 COPY ./etc/pptpd.conf /etc/pptpd.conf
-COPY ./etc/ppp/pptpd-options /etc/ppp/pptpd-options
+COPY ./etc/ppp/pptpd-options /opt/etc/pptpd-options
 COPY ./pptp-js /opt/pptp-js
 RUN mkdir -p /opt/etc/
 COPY ./etc/radsecproxyRadSec.conf /opt/etc/radsecproxyRadSec.conf
@@ -46,6 +46,8 @@ ENV RADIUS_SERVER /etc/radcli/servers
 ENV RADSEC_PROXY_FILE /opt/radsec.sh
 ENV RADIUS_ENVS /opt/envs.sh
 ENV RADIUS_ROUTES /opt/roles
+ENV TEMPLATE_PPP_OPTIONS /opt/etc/pptpd-options
+ENV PPP_OPTIONS /etc/ppp/pptpd-options
 
 ENV CONFIG_PATH  /opt/config.json
 ENV REDIR_SH  /opt/redir.sh
