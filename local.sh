@@ -5,4 +5,4 @@ docker stop pptp-radius-docker
 docker rm pptp-radius-docker
 
 docker build -t pptp-radius-docker .
-docker run --name=pptp-radius-docker -v /home/vzakharchenko/home/docker-pptp-port-forwarding/key.pem:/opt/key.pem -v /home/vzakharchenko/home/docker-pptp-port-forwarding/cert.pem:/opt/cert.pem -v /home/vzakharchenko/home/pptp-radius-docker/examples/config.json:/opt/config.json -p 1723:1723 -p 3799:3799 --privileged pptp-radius-docker
+docker run --name=pptp-radius-docker -v /home/vzakharchenko/home/pptp-radius-docker/key.pem:/opt/key.pem -v /home/vzakharchenko/home/pptp-radius-docker/cert.pem:/opt/cert.pem -v /home/vzakharchenko/home/pptp-radius-docker/examples/example.json:/opt/config.json -p 1723:1723 -p 3799:3799 --privileged pptp-radius-docker
