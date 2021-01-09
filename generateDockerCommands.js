@@ -30,8 +30,8 @@ function parseFile(cJson) {
         }
     });
 
-    console.log('docker run -d --name=pptp-port-forwarding -p 1723:1723 ' + redir +
-        `-v ${configPath}:/opt/config.json --privileged --restart=always vassio/pptp-port-forwarding:latest`)
+    console.log('docker run -d --name=pptp-radius-docker -p 1723:1723 ' + redir +
+        `-v ${configPath}:/opt/config.json --privileged --restart=always vassio/pptp-radius-docker:latest`)
 }
 
 const f = fs.readFileSync(configPath, 'utf8');
