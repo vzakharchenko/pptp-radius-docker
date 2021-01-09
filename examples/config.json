@@ -8,7 +8,7 @@
   "keycloak": {
     "json": {
       "realm": "otpPassword",
-      "auth-server-url": "http://192.168.111.200:8090/auth/",
+      "auth-server-url": "http://192.100.200.148:8090/auth/",
       "ssl-required": "external",
       "resource": "vpn-client",
       "credentials": {

@@ -5,6 +5,7 @@ const {clientAuthentication} = require("keycloak-lambda-authorizer/src/clientAut
 const {fetchData} = require("keycloak-lambda-authorizer/src/utils/restCalls");
 const {getUma2Configuration} = require("./keycloak");
 const {commonOptions} = require("keycloak-lambda-authorizer/src/utils/optionsUtils");
+const STATION_ID = process.env['STATION_ID'] || '123456';
 
 const args = process.argv.slice(2);
 
@@ -43,7 +44,7 @@ async function parseFile(cJson) {
             const options = commonOptions({}, cJson.keycloak.json);
             const uma2Config = await getUma2Configuration(options);
             const jwt = await clientAuthentication(uma2Config, options);
-            const url = `${cJson.keycloak.json['auth-server-url']}realms/${cJson.keycloak.json.realm}/radius/v1/radius/logout?ip=${CONNECTED_IP}`;
+            const url = `${cJson.keycloak.json['auth-server-url']}realms/${cJson.keycloak.json.realm}/radius/v1/radius/logout?ip=${CONNECTED_IP}&calledStationId=${STATION_ID}`;
             const userInfo = JSON.parse(await fetchData(url, 'GET', {
                 'Authorization': `Bearer ${jwt.access_token}`
             }));

@@ -6,5 +6,6 @@
 #       $5      the remote IP address
 #       $6      the parameter specified by the 'ipparam' option to pppd
 source /opt/envs_docker.sh
+source /opt/envs.sh
 logger "setup routing for $1 $5"
 /bin/node /opt/pptp-js/getConnectionInfo.js "$5" "$1"

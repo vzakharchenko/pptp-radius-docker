@@ -19,6 +19,7 @@ key.pem
 cert.pem
 node_modules
 envs.sh
+example.json
 package-lock.json
 pptp-js/radiusclient.conf
 pptp-js/radsec.sh

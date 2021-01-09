@@ -113,7 +113,7 @@ async function parseFile(cJson) {
             const options = commonOptions({}, cJson.keycloak.json);
             const uma2Config = await getUma2Configuration(options);
             const jwt = await clientAuthentication(uma2Config, options);
-            const url = `${cJson.keycloak.json['auth-server-url']}realms/${cJson.keycloak.json.realm}/radius/v1/radius/info`;
+            const url = `${cJson.keycloak.json['auth-server-url']}realms/${cJson.keycloak.json.realm}/radius/v1/radius/info?calledStationId=${stationid}`;
             settings.radiusInfo = JSON.parse(await fetchData(url, 'GET', {
                 'Authorization': `Bearer ${jwt.access_token}`
             }));
