@@ -23,7 +23,7 @@ Access private network from the internet, support port forwarding from private n
 
 ## config.json structure
 
-```
+```json
 {
   "radsec": {
     "privateKey": RADSEC_PRIVATE_KEY,
@@ -36,7 +36,7 @@ Access private network from the internet, support port forwarding from private n
   },
   "radius": {
     "protocol":"RADIUS_PROTOCOL"
-  }
+  },
   "authorizationMap": {
     "roles": {
       "KEYCLOAK_ROLE": {
@@ -56,13 +56,18 @@ Where
 - **RADSEC_CERTIFICATE_FILE** ssl private certificate
 - **CACertificateFile** ssl CA certificate
 - **certificateKeyPassword** privateKey password
-- **KEYCLOAK_JSON** Keycloak.json
+- **KEYCLOAK_JSON** [Keycloak.json](#configure-keycloak)
 - **RADIUS_PROTOCOL** Radius protocol. Supported pap,chap and mschap-v2. If used RadSec(Radius over TLS) then better to use PAP, otherwise mschap-v2
 - **APPLICATION_IP** service IP behind NAT (port forwarding)
 - **APPLICATION_PORT** service PORT behind NAT (port forwarding)
 - **REMOTE_PORT**  port accessible from the internet (port forwarding)
 - **ROUTING_TABLE**  ip with subnet for example 192.168.8.0/24
 - **KEYCLOAK_ROLE**  Role assigned to user
+
+## Installation ![Keycloak-Radius-plugin](https://github.com/vzakharchenko/keycloak-radius-plugin)
+- [Release Setup](https://github.com/vzakharchenko/keycloak-radius-plugin#release-setup)
+- [Docker Setup](https://github.com/vzakharchenko/keycloak-radius-plugin/blob/master/docker/README.md)
+- [Manual Setup](https://github.com/vzakharchenko/keycloak-radius-plugin#manual-setup)
 
 ## Configure Keycloak
 1. Create Realm with Radius client
@@ -77,7 +82,7 @@ Where
 5. Download Keycloak.json
 ![](/img/VPN6.png)
 6. add keycloak.json to config.json
-```
+```json
 {
   "radsec": {
     "privateKey": RADSEC_PRIVATE_KEY,
@@ -108,86 +113,142 @@ Where
 
 ### Connect to LAN from the  internet
 ![](https://github.com/vzakharchenko/pptp-radius-docker/blob/main/img/pptpRoutingKeycloak.png?raw=true)
-**user1** - router with subnet 192.168.88.0/24 behind NAT
-**user2** - user who has access to subnet 192.168.88.0/24 from the Internet
-```
+**user1** - router with subnet 192.168.88.0/24 behind NAT ![](/img/Role1.png)  ![](/img/User1.png)  ![](/img/resetPassword.png)
+**user2** - user who has access to subnet 192.168.88.0/24 from the Internet ![](/img/User2.png)  ![](/img/resetPassword.png)
+```json
 {
-  "users": {
-    "user1": {
-      "password": "password1",
-      "ip": "192.168.122.10",
-      "routing": [
-        {
-          "route": "192.168.88.0/24"
-        }
-      ]
-    },
-    "user2": {
-      "password": "password2",
-      "ip": "192.168.122.11"
-    }
-  }
+   "radsec":{
+      "privateKey":"RADSEC_PRIVATE_KEY",
+      "certificateFile":"RADSEC_CERTIFICATE_FILE",
+      "CACertificateFile":"RADSEC_CA_CERTIFICATE_FILE",
+      "certificateKeyPassword":"RADSEC_PRIVATE_KEY_PASSWORD"
+   },
+   "keycloak":{
+      "json":{
+         "realm":"VPN",
+         "auth-server-url":"http://192.168.1.234:8090/auth/",
+         "ssl-required":"external",
+         "resource":"vpn-client",
+         "credentials":{
+            "secret":"12747feb-794b-4561-a54f-1f49e9366b21"
+         },
+         "confidential-port":0
+      }
+   },
+   "radius":{
+      "protocol":"pap"
+   },
+   "authorizationMap":{
+      "roles":{
+         "Role1":{
+            "routing":[
+               {
+                  "route":"192.168.88.0/24"
+               }
+            ]
+         }
+      }
+   }
 }
 ```
 
+
 ### Port forwarding
 ![](https://github.com/vzakharchenko/pptp-radius-docker/blob/main/img/pptpKeycloakWithRouting.png?raw=true)
-**user** - router with subnet 192.168.88.0/24 behind NAT.
+**user** - router with subnet 192.168.88.0/24 behind NAT. ![](/img/Role1.png)  ![](/img/User1.png)  ![](/img/resetPassword.png)
 Subnet contains service http://192.168.8.254:80 which is available at from http://195.138.164.211:9000
 
-```
+```json
 {
-  "users": {
-    "user": {
-      "password": "password",
-      "ip": "192.168.122.10",
-      "forwarding": [{
-        "sourceIp": "192.168.88.1",
-        "sourcePort": "80",
-        "destinationPort": 9000
-      }],
-    }
-  }
+   "radsec":{
+      "privateKey":"RADSEC_PRIVATE_KEY",
+      "certificateFile":"RADSEC_CERTIFICATE_FILE",
+      "CACertificateFile":"RADSEC_CA_CERTIFICATE_FILE",
+      "certificateKeyPassword":"RADSEC_PRIVATE_KEY_PASSWORD"
+   },
+   "keycloak":{
+      "json":{
+         "realm":"VPN",
+         "auth-server-url":"http://192.168.1.234:8090/auth/",
+         "ssl-required":"external",
+         "resource":"vpn-client",
+         "credentials":{
+            "secret":"12747feb-794b-4561-a54f-1f49e9366b21"
+         },
+         "confidential-port":0
+      }
+   },
+   "radius":{
+      "protocol":"pap"
+   },
+   "authorizationMap":{
+      "roles":{
+         "Role1":{
+            "forwarding":[
+               {
+                  "sourceIp":"192.168.88.1",
+                  "sourcePort":"80",
+                  "destinationPort":9000
+               }
+            ]
+         }
+      }
+   }
 }
 ```
 ### connect multiple networks
 ![](https://github.com/vzakharchenko/pptp-radius-docker/blob/main/img/pptpKeycloakWithRoutingMany.png?raw=true)
-**user1** - router with subnet 192.168.88.0/24 behind NAT. Subnet contains service http://192.168.88.254:80 which is available at from http://195.138.164.211:9000
-**user2** - router with subnet 192.168.89.0/24 behind NAT.
-**user3** - user who has access to subnets 192.168.88.0/24 and 192.168.89.0/24 from the Internet
-```
+**user1** - router with subnet 192.168.88.0/24 behind NAT. Subnet contains service http://192.168.88.254:80 which is available at from http://195.138.164.211:9000 ![](/img/Role1.png)  ![](/img/User1.png)  ![](/img/resetPassword.png)
+**user2** - router with subnet 192.168.89.0/24 behind NAT. ![](/img/Role2.png)  ![](/img/User2.png)  ![](/img/User2Role.png)  ![](/img/resetPassword.png)
+**user3** - user who has access to subnets 192.168.88.0/24 and 192.168.89.0/24 from the Internet  ![](/img/User2.png)  ![](/img/resetPassword.png)
+```json
 {
-  "users": {
-    "user1": {
-      "password": "password1",
-      "ip": "192.168.122.10",
-      "forwarding": [
-        {
-          "sourceIp": "192.168.88.254",
-          "sourcePort": "80",
-          "destinationPort": 9000
-        }
-      ],
-       "routing": [
-        {
-          "route": "192.168.88.0/24"
-        }
-      ]
-    },
-    "user2": {
-      "password": "password2",
-      "ip": "192.168.122.11",
-      "routing": [
-        {
-          "route": "192.168.89.0/24"
-        }
-      ]
-    },
-    "user3": {
-      "password": "password3",
-      "ip": "192.168.122.12"
-    }
-  }
+   "radsec":{
+      "privateKey":"RADSEC_PRIVATE_KEY",
+      "certificateFile":"RADSEC_CERTIFICATE_FILE",
+      "CACertificateFile":"RADSEC_CA_CERTIFICATE_FILE",
+      "certificateKeyPassword":"RADSEC_PRIVATE_KEY_PASSWORD"
+   },
+   "keycloak":{
+      "json":{
+         "realm":"VPN",
+         "auth-server-url":"http://192.168.1.234:8090/auth/",
+         "ssl-required":"external",
+         "resource":"vpn-client",
+         "credentials":{
+            "secret":"12747feb-794b-4561-a54f-1f49e9366b21"
+         },
+         "confidential-port":0
+      }
+   },
+   "radius":{
+      "protocol":"pap"
+   },
+   "authorizationMap":{
+      "roles":{
+         "Role1":{
+            "forwarding":[
+               {
+                  "sourceIp":"192.168.88.254",
+                  "sourcePort":"80",
+                  "destinationPort":9000
+               }
+            ],
+            "routing":[
+               {
+                  "route":"192.168.88.0/24"
+               }
+            ]
+         },
+         "Role2":{
+            "routing":[
+               {
+                  "route":"192.168.89.0/24"
+               }
+            ]
+         }
+      }
+   }
 }
 ```
 
