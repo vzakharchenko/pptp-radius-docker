@@ -94,7 +94,7 @@ function radsecSettings(settings, cJson) {
         }
     }
     let templatePPP = fs.readFileSync(TEMPLATE_PPP_OPTIONS, 'utf8');
-    const protocol = cJson.radius?.protocol || 'mschap-v2';
+    const protocol = cJson.radius.protocol || 'mschap-v2';
     if (!['pap', 'chap', 'mschap-v2'].includes(protocol)) {
         throw new Error("Protocol " + protocol + " does not supported. Supported only pap,chap and mschap-v2");
     }
