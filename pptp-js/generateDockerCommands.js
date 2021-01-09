@@ -32,7 +32,7 @@ function parseFile(cJson) {
     }
 
     console.log('docker run -d --name=pptp-radius-docker -p 1723:1723 -p 3799:3799 ' + redir +
-        `-v ${configPath}:/opt/config.json ${radsec} --privileged --restart=always vassio/pptp-port-forwarding:latest`)
+        `-v ${configPath}:/opt/config.json ${radsec} --privileged --restart=always vassio/pptp-radius-docker:latest`)
 }
 
 const f = fs.readFileSync(configPath, 'utf8');
