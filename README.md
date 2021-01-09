@@ -8,6 +8,15 @@ Access private network from the internet, support port forwarding from private n
 ## Example
 ![](https://github.com/vzakharchenko/pptp-radius-docker/blob/main/img/pptpKeycloakWithRouting.png?raw=true)
 
+## Installation
+[create /opt/config.json](#configjson-structure)
+```
+sudo apt-get update && sudo apt-get install -y curl
+curl -sSL https://raw.githubusercontent.com/vzakharchenko/pptp-radius-docker/main/ubuntu.install -o ubuntu.install
+chmod +x ubuntu.install
+./ubuntu.install
+```
+
 
 ## Features
  - Docker image
