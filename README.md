@@ -36,6 +36,46 @@ chmod +x ubuntu.install
 ./ubuntu.install
 ```
 
+## Configure Keycloak
+1. Create Realm with Radius client
+![](https://github.com/vzakharchenko/pptp-radius-docker/blob/main/img/VPN1.png?raw=true)
+![](https://github.com/vzakharchenko/pptp-radius-docker/blob/main/img/VPN2.png?raw=true)
+2. Create OIDC client to Radius Realm
+![](https://github.com/vzakharchenko/pptp-radius-docker/blob/main/img/VPN3.png?raw=true)
+3. Enable Service Accounts for OIDC client
+![](https://github.com/vzakharchenko/pptp-radius-docker/blob/main/img/VPN4.png?raw=true)
+4. Add role "Radius Session Role" to Service Accounts
+![](https://github.com/vzakharchenko/pptp-radius-docker/blob/main/img/VPN5.png?raw=true)
+5. Download Keycloak.json
+![](https://github.com/vzakharchenko/pptp-radius-docker/blob/main/img/VPN6.png?raw=true)
+6. add keycloak.json to config.json
+```json
+{
+  "radsec": {
+    "privateKey": RADSEC_PRIVATE_KEY,
+    "certificateFile": RADSEC_CERTIFICATE_FILE,
+    "CACertificateFile": RADSEC_CA_CERTIFICATE_FILE,
+    "certificateKeyPassword": RADSEC_PRIVATE_KEY_PASSWORD
+  },
+  "keycloak": {
+    "json": {
+        "realm": "VPN",
+        "auth-server-url": "http://192.168.1.234:8090/auth/",
+        "ssl-required": "external",
+        "resource": "vpn-client",
+        "credentials": {
+            "secret": "12747feb-794b-4561-a54f-1f49e9366b21"
+         },
+        "confidential-port": 0
+    }
+  },
+  "radius": {
+    "protocol":"pap"
+  }
+}
+```
+
+
 ## config.json structure
 
 ```json
@@ -83,46 +123,6 @@ Where
 - [Release Setup](https://github.com/vzakharchenko/keycloak-radius-plugin#release-setup)
 - [Docker Setup](https://github.com/vzakharchenko/keycloak-radius-plugin/blob/master/docker/README.md)
 - [Manual Setup](https://github.com/vzakharchenko/keycloak-radius-plugin#manual-setup)
-
-## Configure Keycloak
-1. Create Realm with Radius client
-![](https://github.com/vzakharchenko/pptp-radius-docker/blob/main/img/VPN1.png?raw=true)
-![](https://github.com/vzakharchenko/pptp-radius-docker/blob/main/img/VPN2.png?raw=true)
-2. Create OIDC client to Radius Realm
-![](https://github.com/vzakharchenko/pptp-radius-docker/blob/main/img/VPN3.png?raw=true)
-3. Enable Service Accounts for OIDC client
-![](https://github.com/vzakharchenko/pptp-radius-docker/blob/main/img/VPN4.png?raw=true)
-4. Add role "Radius Session Role" to Service Accounts
-![](https://github.com/vzakharchenko/pptp-radius-docker/blob/main/img/VPN5.png?raw=true)
-5. Download Keycloak.json
-![](https://github.com/vzakharchenko/pptp-radius-docker/blob/main/img/VPN6.png?raw=true)
-6. add keycloak.json to config.json
-```json
-{
-  "radsec": {
-    "privateKey": RADSEC_PRIVATE_KEY,
-    "certificateFile": RADSEC_CERTIFICATE_FILE,
-    "CACertificateFile": RADSEC_CA_CERTIFICATE_FILE,
-    "certificateKeyPassword": RADSEC_PRIVATE_KEY_PASSWORD
-  },
-  "keycloak": {
-    "json": {
-        "realm": "VPN",
-        "auth-server-url": "http://192.168.1.234:8090/auth/",
-        "ssl-required": "external",
-        "resource": "vpn-client",
-        "credentials": {
-            "secret": "12747feb-794b-4561-a54f-1f49e9366b21"
-         },
-        "confidential-port": 0
-    }
-  },
-  "radius": {
-    "protocol":"pap"
-  }
-}
-```
-
 
 ## Examples
 
