@@ -36,6 +36,12 @@ chmod +x ubuntu.install
 ./ubuntu.install
 ```
 
+## Installation ![Keycloak-Radius-plugin](https://github.com/vzakharchenko/keycloak-radius-plugin)
+- [Release Setup](https://github.com/vzakharchenko/keycloak-radius-plugin#release-setup)
+- [Docker Setup](https://github.com/vzakharchenko/keycloak-radius-plugin/blob/master/docker/README.md)
+- [Manual Setup](https://github.com/vzakharchenko/keycloak-radius-plugin#manual-setup)
+
+
 ## Configure Keycloak
 1. Create Realm with Radius client
 ![](https://github.com/vzakharchenko/pptp-radius-docker/blob/main/img/VPN1.png?raw=true)
@@ -119,10 +125,6 @@ Where
 - **ROUTING_TABLE**  ip with subnet for example 192.168.8.0/24
 - **KEYCLOAK_ROLE**  Role assigned to user
 
-## Installation ![Keycloak-Radius-plugin](https://github.com/vzakharchenko/keycloak-radius-plugin)
-- [Release Setup](https://github.com/vzakharchenko/keycloak-radius-plugin#release-setup)
-- [Docker Setup](https://github.com/vzakharchenko/keycloak-radius-plugin/blob/master/docker/README.md)
-- [Manual Setup](https://github.com/vzakharchenko/keycloak-radius-plugin#manual-setup)
 
 ## Examples
 
