@@ -5,6 +5,18 @@ Access private network from the internet, support port forwarding from private n
 
 [GitHub Project](https://github.com/vzakharchenko/pptp-radius-docker)
 
+## Features
+ - Docker image
+ - Keycloak authentication and authorization
+ - Radius client
+ - support RadSec protocol (Radius over TLS)
+ - [Management routing  and portforwarding using json file](#configjson-structure)
+ - [Connect to LAN from the internet](#connect-to-lan-from-the--internet)
+ - [Port forwarding](#port-forwarding)
+ - [Connect multiple networks](#connect-multiple-networks)
+ - [Automatic installation(Ubuntu)](#automatic-cloud-installation)
+ - [Manual Installation steps (Ubuntu)](#manual-cloud-installationubuntu)
+
 ## Example
 ![](https://github.com/vzakharchenko/pptp-radius-docker/blob/main/img/pptpKeycloakWithRouting.png?raw=true)
 ## Download
@@ -23,19 +35,6 @@ curl -sSL https://raw.githubusercontent.com/vzakharchenko/pptp-radius-docker/mai
 chmod +x ubuntu.install
 ./ubuntu.install
 ```
-
-
-## Features
- - Docker image
- - Keycloak authentication and authorization
- - Radius client
- - RadSec protocol (Radius over TLS)
- - [Management routing  and portforwarding using json file](#configjson-structure)
- - [Connect to LAN from the internet](#connect-to-lan-from-the--internet)
- - [Port forwarding](#port-forwarding)
- - [Connect multiple networks](#connect-multiple-networks)
- - [Automatic installation(Ubuntu)](#automatic-cloud-installation)
- - [Manual Installation steps (Ubuntu)](#manual-cloud-installationubuntu)
 
 ## config.json structure
 
