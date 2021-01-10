@@ -87,16 +87,16 @@ Where
 
 ## Configure Keycloak
 1. Create Realm with Radius client
-![](/img/VPN1.png)
-![](/img/VPN2.png)
+![](https://github.com/vzakharchenko/pptp-radius-docker/blob/main/img/VPN1.png?raw=true)
+![](https://github.com/vzakharchenko/pptp-radius-docker/blob/main/img/VPN2.png?raw=true)
 2. Create OIDC client to Radius Realm
-![](/img/VPN3.png)
+![](https://github.com/vzakharchenko/pptp-radius-docker/blob/main/img/VPN3.png?raw=true)
 3. Enable Service Accounts for OIDC client
-![](/img/VPN4.png)
+![](https://github.com/vzakharchenko/pptp-radius-docker/blob/main/img/VPN4.png?raw=true)
 4. Add role "Radius Session Role" to Service Accounts
-![](/img/VPN5.png)
+![](https://github.com/vzakharchenko/pptp-radius-docker/blob/main/img/VPN5.png?raw=true)
 5. Download Keycloak.json
-![](/img/VPN6.png)
+![](https://github.com/vzakharchenko/pptp-radius-docker/blob/main/img/VPN6.png?raw=true)
 6. add keycloak.json to config.json
 ```json
 {
@@ -127,10 +127,10 @@ Where
 
 ## Examples
 
-### Connect to LAN from the  internet
+# Connect to LAN from the  internet
 ![](https://github.com/vzakharchenko/pptp-radius-docker/blob/main/img/pptpRoutingKeycloak.png?raw=true)
-**user1** - router with subnet 192.168.88.0/24 behind NAT ![](/img/Role1.png)  ![](/img/User1.png)  ![](/img/resetPassword.png)
-**user2** - user who has access to subnet 192.168.88.0/24 from the Internet ![](/img/User2.png)  ![](/img/resetPassword.png)
+**user1** - router with subnet 192.168.88.0/24 behind NAT ![](https://github.com/vzakharchenko/pptp-radius-docker/blob/main/img/Role1.png?raw=true)  ![](https://github.com/vzakharchenko/pptp-radius-docker/blob/main/img/User1.png?raw=true)  ![](https://github.com/vzakharchenko/pptp-radius-docker/blob/main/img/resetPassword.png?raw=true)
+**user2** - user who has access to subnet 192.168.88.0/24 from the Internet ![](https://github.com/vzakharchenko/pptp-radius-docker/blob/main/img/User2.png?raw=true)  ![](https://github.com/vzakharchenko/pptp-radius-docker/blob/main/img/resetPassword.png?raw=true)
 ```json
 {
    "radsec":{
@@ -169,9 +169,9 @@ Where
 ```
 
 
-### Port forwarding
+# Port forwarding
 ![](https://github.com/vzakharchenko/pptp-radius-docker/blob/main/img/pptpKeycloakWithRouting.png?raw=true)
-**user** - router with subnet 192.168.88.0/24 behind NAT. ![](/img/Role1.png)  ![](/img/User1.png)  ![](/img/resetPassword.png)
+**user** - router with subnet 192.168.88.0/24 behind NAT. ![](https://github.com/vzakharchenko/pptp-radius-docker/blob/main/img/Role1.png?raw=true)  ![](https://github.com/vzakharchenko/pptp-radius-docker/blob/main/img/User1.png?raw=true)  ![](https://github.com/vzakharchenko/pptp-radius-docker/blob/main/img/resetPassword.png?raw=true)
 Subnet contains service http://192.168.8.254:80 which is available at from http://195.138.164.211:9000
 
 ```json
@@ -212,11 +212,11 @@ Subnet contains service http://192.168.8.254:80 which is available at from http:
    }
 }
 ```
-### connect multiple networks
+# connect multiple networks
 ![](https://github.com/vzakharchenko/pptp-radius-docker/blob/main/img/pptpKeycloakWithRoutingMany.png?raw=true)
-**user1** - router with subnet 192.168.88.0/24 behind NAT. Subnet contains service http://192.168.88.254:80 which is available at from http://195.138.164.211:9000 ![](/img/Role1.png)  ![](/img/User1.png)  ![](/img/resetPassword.png)
-**user2** - router with subnet 192.168.89.0/24 behind NAT. ![](/img/Role2.png)  ![](/img/User2.png)  ![](/img/User2Role.png)  ![](/img/resetPassword.png)
-**user3** - user who has access to subnets 192.168.88.0/24 and 192.168.89.0/24 from the Internet  ![](/img/User2.png)  ![](/img/resetPassword.png)
+**user1** - router with subnet 192.168.88.0/24 behind NAT. Subnet contains service http://192.168.88.254:80 which is available at from http://195.138.164.211:9000 ![](https://github.com/vzakharchenko/pptp-radius-docker/blob/main/img/Role1.png?raw=true)  ![](https://github.com/vzakharchenko/pptp-radius-docker/blob/main/img/User1.png)  ![](https://github.com/vzakharchenko/pptp-radius-docker/blob/main/img/resetPassword.png?raw=true)
+**user2** - router with subnet 192.168.89.0/24 behind NAT. ![](https://github.com/vzakharchenko/pptp-radius-docker/blob/main/img/Role2.png?raw=true)  ![](https://github.com/vzakharchenko/pptp-radius-docker/blob/main/img/User2.png?raw=true)  ![](https://github.com/vzakharchenko/pptp-radius-docker/blob/main/img/User2Role.png?raw=true)  ![](https://github.com/vzakharchenko/pptp-radius-docker/blob/main/img/resetPassword.png?raw=true)
+**user3** - user who has access to subnets 192.168.88.0/24 and 192.168.89.0/24 from the Internet  ![](https://github.com/vzakharchenko/pptp-radius-docker/blob/main/img/User2.png?raw=true)  ![](https://github.com/vzakharchenko/pptp-radius-docker/blob/main/img/resetPassword.png?raw=true)
 ```json
 {
    "radsec":{
