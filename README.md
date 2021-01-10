@@ -7,6 +7,13 @@ Access private network from the internet, support port forwarding from private n
 
 ## Example
 ![](https://github.com/vzakharchenko/pptp-radius-docker/blob/main/img/pptpKeycloakWithRouting.png?raw=true)
+## Download
+
+Get the trusted build from the [Docker Hub registry](https://hub.docker.com/r/vassio/keycloak-radius-plugin/):
+
+```
+docker pull vassio/pptp-radius-docker
+```
 
 ## Installation
 [create /opt/config.json](#configjson-structure)
