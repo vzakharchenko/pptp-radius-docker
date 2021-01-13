@@ -16,6 +16,7 @@ Access private network from the internet, support port forwarding from private n
  - [Connect multiple networks](#connect-multiple-networks)
  - [Automatic installation(Ubuntu)](#automatic-cloud-installation)
  - [Manual Installation steps (Ubuntu)](#manual-cloud-installationubuntu)
+ - [Deny user access to VPN](#deny-user-access-to-vpn)
 
 ## Example
 ![](https://github.com/vzakharchenko/pptp-radius-docker/blob/main/img/pptpKeycloakWithRouting.png?raw=true)
@@ -294,6 +295,15 @@ curl -sSL https://raw.githubusercontent.com/vzakharchenko/pptp-radius-docker/mai
 chmod +x ubuntu.install
 ./ubuntu.install
 ```
+### Deny user access to VPN
+
+- create client/realm role and add attribute:
+```
+REJECT_Connect-Info=L2TP
+```
+![](./img/RejectRole.png)
+
+- assign a role to a user and after that the user will always be rejected
 
 ### Manual Cloud Installation(Ubuntu)
 
