@@ -6,17 +6,17 @@ const SECRET = process.env.SECRET || 'secret';
 const COA_PORT = process.env.COA_PORT || 3799;
 const STATION_ID = process.env.STATION_ID || 123456;
 
-console.log = (text)=>{
+console.log = (text) => {
     return exec(`logger "${text}"`);
 }
 
-child = (int)=> exec(`ip link delete `+int,
+child = (int) => exec(`ip link delete ` + int,
     function (error, stdout, stderr) {
         if (error !== null) {
-            console.log('exec error: ' + error+' ; message: '+stderr);
+            console.log('exec error: ' + error + ' ; message: ' + stderr);
         }
     });
-ipAll = ()=> new Promise((resolve, reject)=>{
+ipAll = () => new Promise((resolve, reject) => {
     exec('ip -j a',
         function (error, stdout, stderr) {
             if (error !== null) {
@@ -43,13 +43,13 @@ server.on('error', (err) => {
 
 server.on('message', async (msg, rinfo) => {
     const packet = radius.decode({packet: msg, secret: SECRET});
-   // console.log(`server got: ${JSON.stringify(packet)} from ${rinfo.address}:${rinfo.port}`);
+    // console.log(`server got: ${JSON.stringify(packet)} from ${rinfo.address}:${rinfo.port}`);
     const stationId = packet.attributes['Called-Station-Id'];
-    if (stationId === STATION_ID){
+    if (stationId === STATION_ID || stationId === `id${STATION_ID}`) {
         const ip = packet.attributes['Framed-IP-Address'];
         console.log(`IP from interface: ${ip}`);
         const interfaces = await getInterfacesByIp(ip);
-        interfaces.forEach(intf=>{
+        interfaces.forEach(intf => {
             child(intf)
         })
     } else {
