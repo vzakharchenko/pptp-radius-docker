@@ -1,5 +1,5 @@
 # Docker image with PPTP server including routing and port forwarding
-
+![pptp-radius-docker amd64, arm/v7, arm64](https://github.com/vzakharchenko/pptp-radius-docker/workflows/pptp-radius-docker%20amd64,%20arm/v7,%20arm64/badge.svg)
 ## Description
 Access private network from the internet, support port forwarding from private network to outside via cloud.
 
