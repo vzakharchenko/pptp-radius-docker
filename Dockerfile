@@ -8,7 +8,7 @@ RUN apt-get update && apt-get install -y gnupg2 ca-certificates lsb-release wget
 RUN update-ca-certificates --fresh
 RUN apt-get purge curl
 RUN wget -qO-  https://deb.nodesource.com/setup_15.x | bash
-RUN apt-get update && apt-get install -y curl ppp pptpd iptables rsyslog iproute2 redir net-tools inetutils-inetd git iptables-persistent systemd nodejs npm
+RUN apt-get update && apt-get install -y curl ppp pptpd iptables rsyslog iproute2 redir net-tools inetutils-inetd git iptables-persistent systemd nodejs
 RUN apt-get install -y autoconf libtool automake nettle-dev libgnutls28-dev abi-compliance-checker libradcli4 radsecproxy wget
 RUN npm i pm2 -g
 RUN ln -s  /etc/radcli /etc/radiusclient
